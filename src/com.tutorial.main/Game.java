@@ -14,14 +14,14 @@ public class Game extends Canvas implements Runnable {
 
 
     public Game() {
+        handler = new Handler(); // handler must be created before window or else random crashes can occur
+        this.addKeyListener(new KeyInput(handler));
         new Window(WIDTH, HEIGHT, "lets build a game!", this);
 
-        handler = new Handler();
         r = new Random();
 
-        for(int i=0; i < 50; i++){
-            handler.addObj(new Player(r.nextInt(WIDTH),r.nextInt(HEIGHT),ID.Player));
-        }
+        handler.addObj(new Player(WIDTH/2-32, HEIGHT/2-32, ID.Player));
+        handler.addObj(new Player(WIDTH/2+64, HEIGHT/2-32, ID.Player2));
 //        handler.addObj(new Player(100,100,ID.Player));
 //        handler.addObj(new Player(200,200,ID.Player));
     }
@@ -67,20 +67,20 @@ public class Game extends Canvas implements Runnable {
 
             if (System.currentTimeMillis() - timer > 1000) {    // if the gap between when the timer was set to now is over 1000 milliseconds, add 1000 to the timer, print the frames out, then reset frames to recalculate
                 timer += 1000;
-                System.out.println("FPS: " + frames);
+//                System.out.println("FPS: " + frames);
                 frames = 0;
             }
         }
         stop();                             // when running is no longer true, stop the game
     }
 
-    private void tick(){
-    handler.tick();
+    private void tick() {
+        handler.tick();
     }
 
-    private void render(){
-        BufferStrategy bs =this.getBufferStrategy();
-        if(bs == null){
+    private void render() {
+        BufferStrategy bs = this.getBufferStrategy();
+        if (bs == null) {
             this.createBufferStrategy(3);
             return;
 
@@ -88,7 +88,7 @@ public class Game extends Canvas implements Runnable {
 
         Graphics g = bs.getDrawGraphics();
         g.setColor(Color.black);
-        g.fillRect(0,0,WIDTH, HEIGHT);
+        g.fillRect(0, 0, WIDTH, HEIGHT);
         handler.render(g);
 
         g.dispose();
