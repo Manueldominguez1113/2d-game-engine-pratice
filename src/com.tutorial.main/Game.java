@@ -11,17 +11,21 @@ public class Game extends Canvas implements Runnable {
     private boolean running = false;
     private Handler handler;
     private Random r;
-
+    private HUD hud;
 
     public Game() {
         handler = new Handler(); // handler must be created before window or else random crashes can occur
         this.addKeyListener(new KeyInput(handler));
         new Window(WIDTH, HEIGHT, "lets build a game!", this);
 
+        hud = new HUD();
+
         r = new Random();
 
-        handler.addObj(new Player(WIDTH/2-32, HEIGHT/2-32, ID.Player));
-        handler.addObj(new Player(WIDTH/2+64, HEIGHT/2-32, ID.Player2));
+        handler.addObj(new Player(WIDTH / 2 - 32, HEIGHT / 2 - 32, ID.Player));
+        handler.addObj(new BasicEnemy(WIDTH / 2 - 32, HEIGHT / 2 - 32, ID.BasicEnemy));
+
+//        handler.addObj(new Player(WIDTH/2+64, HEIGHT/2-32, ID.Player2));
 //        handler.addObj(new Player(100,100,ID.Player));
 //        handler.addObj(new Player(200,200,ID.Player));
     }
@@ -45,6 +49,7 @@ public class Game extends Canvas implements Runnable {
 
 
     public void run() {
+        this.requestFocus();
         long lastTime = System.nanoTime();       // "the last time looped in nanoseconds"
         double amountOfTicks = 60.0;            // sets the ticks per frame
         double ns = 1000000000 / amountOfTicks; //nanoseconds, divided by amount of ticks(60) to determine time in seconds
@@ -76,6 +81,7 @@ public class Game extends Canvas implements Runnable {
 
     private void tick() {
         handler.tick();
+        hud.tick();
     }
 
     private void render() {
@@ -90,9 +96,18 @@ public class Game extends Canvas implements Runnable {
         g.setColor(Color.black);
         g.fillRect(0, 0, WIDTH, HEIGHT);
         handler.render(g);
-
+        hud.render(g);
         g.dispose();
         bs.show();
+    }
+
+    public static int clamp(int var, int min, int max) {
+        if (var >= max) {
+            return var = max;
+        } else if (var <= min) {
+            return var = min;
+        }
+        return var;
     }
 
     public static void main(String[] args) {

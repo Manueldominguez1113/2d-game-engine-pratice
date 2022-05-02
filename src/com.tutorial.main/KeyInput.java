@@ -31,7 +31,7 @@ public class KeyInput extends KeyAdapter {
                     tempObj.setVelX(-5);
                 }
             }
-            if (tempObj.getId() == ID.Player2) {
+/*            if (tempObj.getId() == ID.Player2) {
                 //key events for player two
                 if (key == KeyEvent.VK_UP) {
                     tempObj.setVelY(-5);
@@ -45,9 +45,10 @@ public class KeyInput extends KeyAdapter {
                 if (key == KeyEvent.VK_LEFT) {
                     tempObj.setVelX(-5);
                 }
-            }
+            }*/
         }
 
+        if(key == KeyEvent.VK_ESCAPE){ System.exit(1);}
     }
 
     public void keyReleased(KeyEvent e) {
@@ -71,7 +72,7 @@ public class KeyInput extends KeyAdapter {
                     tempObj.setVelX(0);
                 }
             }
-            if (tempObj.getId() == ID.Player2) {
+           /* if (tempObj.getId() == ID.Player2) {
                 //key events for player two
                 if (key == KeyEvent.VK_UP) {
                     tempObj.setVelY(0);
@@ -85,7 +86,7 @@ public class KeyInput extends KeyAdapter {
                 if (key == KeyEvent.VK_LEFT) {
                     tempObj.setVelX(0);
                 }
-            }
+            }*/
         }
 
     }
