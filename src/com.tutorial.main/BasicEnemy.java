@@ -10,6 +10,11 @@ public class BasicEnemy extends GameObject {
 
     }
 
+
+    public Rectangle getBounds(){
+        return new Rectangle(x,y,16,16);
+    }
+
     @Override
     public void tick() {
         x += velX;
@@ -24,6 +29,10 @@ public class BasicEnemy extends GameObject {
 
     @Override
     public void render(Graphics g) {
+//        Graphics2D g2d = (Graphics2D) g;
+//        g.setColor(Color.green);;
+//        g2d.draw(getBounds());  shows collision value;
+
         g.setColor(Color.red);
         g.fillRect(x, y, 16, 16);
     }
