@@ -6,19 +6,24 @@ import java.util.LinkedList;
 public class Handler {
     LinkedList<GameObject> object = new LinkedList<GameObject>();
     public void tick(){
-        // for(int i=0; i< object.size(); i++){
-        //            GameObject tempObj = object.get(i);
-        //            tempObj.tick();
-        //        }
-        for (GameObject tempObj : object) {
-            tempObj.tick();
-        }
+         for(int i=0; i< object.size(); i++){
+                    GameObject tempObj = object.get(i);
+                    tempObj.tick();
+                }
+//        for (GameObject tempObj : object) {
+//            tempObj.tick();
+//        }  for each method will bring a concurrent error with it, this scenario requires normal for loop
+
     }
 
     public void render(Graphics g){
-        for (GameObject tempObj : object) {
+        for(int i=0; i< object.size(); i++){
+            GameObject tempObj = object.get(i);
             tempObj.render(g);
         }
+//    for (GameObject tempObj : object) {
+//            tempObj.render(g);
+//        }
     }
 
 

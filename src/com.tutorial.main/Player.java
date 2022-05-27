@@ -27,7 +27,9 @@ public class Player extends GameObject {
 
         x= Game.clamp(x,0,Game.WIDTH-37);
         y= Game.clamp(y,0,Game.HEIGHT-60);
-    collision();
+    handler.addObj(new Trail(x,y,id.Trail,Color.white,32,32,0.07f,handler));
+
+        collision();
     }
 
     private void collision(){
