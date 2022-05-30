@@ -12,6 +12,7 @@ public class Game extends Canvas implements Runnable {
     private Handler handler;
     private Random r;
     private HUD hud;
+    private Spawn spawner;
 
     public Game() {
         handler = new Handler(); // handler must be created before window or else random crashes can occur
@@ -19,13 +20,13 @@ public class Game extends Canvas implements Runnable {
         new Window(WIDTH, HEIGHT, "lets build a game!", this);
 
         hud = new HUD();
-
+        spawner=new Spawn(handler, hud);
         r = new Random();
 
         handler.addObj(new Player(WIDTH / 2 - 32, HEIGHT / 2 - 32, ID.Player, handler));
-        for(int i=0; i<4; i++) {
+//        for(int i=0; i<4; i++) {
             handler.addObj(new BasicEnemy(r.nextInt(WIDTH), r.nextInt(HEIGHT), ID.BasicEnemy, handler));
-        }
+//        }
 //        handler.addObj(new Player(WIDTH/2+64, HEIGHT/2-32, ID.Player2));
 //        handler.addObj(new Player(100,100,ID.Player));
 //        handler.addObj(new Player(200,200,ID.Player));
@@ -83,6 +84,7 @@ public class Game extends Canvas implements Runnable {
     private void tick() {
         handler.tick();
         hud.tick();
+        spawner.tick();
     }
 
     private void render() {

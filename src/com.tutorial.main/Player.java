@@ -27,7 +27,7 @@ public class Player extends GameObject {
 
         x= Game.clamp(x,0,Game.WIDTH-37);
         y= Game.clamp(y,0,Game.HEIGHT-60);
-    handler.addObj(new Trail(x,y,id.Trail,Color.white,32,32,0.07f,handler));
+    handler.addObj(new Trail(x,y,ID.Trail,Color.white,32,32,0.07f,handler));
 
         collision();
     }
@@ -36,7 +36,7 @@ public class Player extends GameObject {
         for (int i =0; i< handler.object.size();i++){
             GameObject tempobject= handler.object.get(i);
 
-            if(tempobject.getId()==id.BasicEnemy){
+            if(tempobject.getId()==ID.BasicEnemy || tempobject.getId()==ID.fastEnemy){
                 if(getBounds().intersects(tempobject.getBounds())){
 //                collision code
                     HUD.HEALTH -= 2;
