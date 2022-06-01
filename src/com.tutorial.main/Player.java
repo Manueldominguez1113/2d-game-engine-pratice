@@ -18,16 +18,16 @@ public class Player extends GameObject {
     }
 
     public Rectangle getBounds(){
-        return new Rectangle(x,y,32,32);
+        return new Rectangle((int)x,(int)y,32,32);
     }
 
     public void tick() {
         x += velX;
         y += velY;
 
-        x= Game.clamp(x,0,Game.WIDTH-37);
-        y= Game.clamp(y,0,Game.HEIGHT-60);
-    handler.addObj(new Trail(x,y,ID.Trail,Color.white,32,32,0.07f,handler));
+        x= Game.clamp((int)x,0,Game.WIDTH-37);
+        y= Game.clamp((int)y,0,Game.HEIGHT-60);
+    handler.addObj(new Trail((int)x,(int)y,ID.Trail,Color.white,32,32,0.07f,handler));
 
         collision();
     }
@@ -36,7 +36,7 @@ public class Player extends GameObject {
         for (int i =0; i< handler.object.size();i++){
             GameObject tempobject= handler.object.get(i);
 
-            if(tempobject.getId()==ID.BasicEnemy || tempobject.getId()==ID.fastEnemy){
+            if(tempobject.getId()==ID.BasicEnemy || tempobject.getId()==ID.fastEnemy || tempobject.getId()==ID.smartEnemy){
                 if(getBounds().intersects(tempobject.getBounds())){
 //                collision code
                     HUD.HEALTH -= 2;
@@ -51,7 +51,7 @@ public class Player extends GameObject {
         } /*else if (id == ID.Player2) {
             g.setColor(Color.blue);
         }*/
-        g.fillRect(x, y, 32, 32);
+        g.fillRect((int)x, (int)y, 32, 32);
     }
 
 

@@ -15,7 +15,7 @@ public class BasicEnemy extends GameObject {
 
 
     public Rectangle getBounds(){
-        return new Rectangle(x,y,16,16);
+        return new Rectangle((int)x,(int)y,16,16);
     }
 
     @Override
@@ -29,7 +29,7 @@ public class BasicEnemy extends GameObject {
             velX *= -1;
         }
 
-        handler.addObj(new Trail(x, y, id.Trail ,Color.red, 16, 16, 0.02f, handler));
+        handler.addObj(new Trail((int)x, (int)y, id.Trail ,Color.red, 16, 16, 0.02f, handler));
     }
 
     @Override
@@ -39,6 +39,6 @@ public class BasicEnemy extends GameObject {
 //        g2d.draw(getBounds());  shows collision value;
 
         g.setColor(Color.red);
-        g.fillRect(x, y, 16, 16);
+        g.fillRect((int)x, (int)y, 16, 16);
     }
 }
