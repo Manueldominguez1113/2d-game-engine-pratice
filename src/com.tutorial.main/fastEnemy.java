@@ -29,7 +29,7 @@ public class fastEnemy extends GameObject {
             velX *= -1;
         }
 
-        handler.addObj(new Trail((int)x, (int)y, id.Trail ,Color.cyan, 16, 16, 0.02f, handler));
+        handler.addObj(new Trail((int)x, (int)y, ID.Trail ,Color.cyan, 16, 16, 0.02f, handler));
     }
 
     @Override
