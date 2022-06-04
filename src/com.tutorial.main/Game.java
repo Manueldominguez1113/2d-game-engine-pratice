@@ -14,21 +14,26 @@ public class Game extends Canvas implements Runnable {
     private HUD hud;
     private Spawn spawner;
 
+    public enum STATE {
+        Menu,
+        Game
+    }
+
+    public STATE gameState = STATE.Menu;
+
     public Game() {
         handler = new Handler(); // handler must be created before window or else random crashes can occur
         this.addKeyListener(new KeyInput(handler));
         new Window(WIDTH, HEIGHT, "lets build a game!", this);
 
         hud = new HUD();
-        spawner=new Spawn(handler, hud);
+        spawner = new Spawn(handler, hud);
         r = new Random();
-
-        handler.addObj(new Player(WIDTH / 2 - 32, HEIGHT / 2 - 32, ID.Player, handler));
-//        for(int i=0; i<4; i++) {
-            handler.addObj(new BasicEnemy(r.nextInt(WIDTH-20), r.nextInt(HEIGHT-20), ID.BasicEnemy, handler));
-
-//        }
-//        handler.addObj(new Player(WIDTH/2+64, HEIGHT/2-32, ID.Player2));
+        if (gameState == STATE.Game) {
+            handler.addObj(new Player(WIDTH / 2 - 32, HEIGHT / 2 - 32, ID.Player, handler));
+            handler.addObj(new BasicEnemy(r.nextInt(WIDTH - 20), r.nextInt(HEIGHT - 20), ID.BasicEnemy, handler));
+        }
+//        handler.addObj(new Player(WIDTH/2+64, HEIGHT/2-32, ID.Player2)); <-- player 2
 //        handler.addObj(new Player(100,100,ID.Player));
 //        handler.addObj(new Player(200,200,ID.Player));
     }
@@ -84,8 +89,10 @@ public class Game extends Canvas implements Runnable {
 
     private void tick() {
         handler.tick();
-        hud.tick();
-        spawner.tick();
+        if (gameState == STATE.Game) {
+            hud.tick();
+            spawner.tick();
+        }
     }
 
     private void render() {
@@ -100,7 +107,12 @@ public class Game extends Canvas implements Runnable {
         g.setColor(Color.black);
         g.fillRect(0, 0, WIDTH, HEIGHT);
         handler.render(g);
-        hud.render(g);
+        if (gameState == STATE.Game) {
+            hud.render(g);
+        } else {
+            g.setColor(Color.white);
+            g.drawString("Menu", 100,100);
+        }
         g.dispose();
         bs.show();
     }
